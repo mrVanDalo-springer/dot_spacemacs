@@ -37,12 +37,12 @@ values."
      emacs-lisp
      haskell
      lua
+     spell-checking
+     syntax-checking
      ;; 
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     ;; spell-checking
-     ;; syntax-checking
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
@@ -258,6 +258,16 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place you code here."
+  ;;
+  ;; add a browser configuration, which should
+  ;; use sudo to call the browser.
+  ;; this way we have a "sandbox" in which the
+  ;; browser can't create such a big mess.
+  (defun my-sudo-browser (url &rest ARGS)
+    "Open URL in a sudo save browser"
+    (interactive (browse-url-interactive-arg "URL: "))
+    (call-process "sh" nil nil nil "-c" (concat "/home/palo/.browser.sh " url)))
+  (setq browse-url-browser-function 'my-sudo-browser)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
