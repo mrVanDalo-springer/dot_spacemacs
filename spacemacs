@@ -30,15 +30,18 @@ values."
      markdown
      dockerfile
      puppet
-     erc
+     rcirc
      eyebrowse ;; (SPC l w) 
      restclient
      ;; languages
      emacs-lisp
      haskell
      lua
+     ruby
      spell-checking
      syntax-checking
+     ;; experimental
+     ;; slack
      ;; 
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -115,7 +118,8 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   ;;dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Terminus"
                                :size 13
                                :weight normal
                                :width normal
@@ -259,6 +263,8 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place you code here."
   ;;
+  ;; configure browse-URL
+  ;; --------------------
   ;; add a browser configuration, which should
   ;; use sudo to call the browser.
   ;; this way we have a "sandbox" in which the
@@ -268,7 +274,40 @@ you should place you code here."
     (interactive (browse-url-interactive-arg "URL: "))
     (call-process "sh" nil nil nil "-c" (concat "/home/palo/.browser.sh " url)))
   (setq browse-url-browser-function 'my-sudo-browser)
+  ;;
+  ;; configure org-mode
+  ;; ------------------
+  (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
+  ;;
+  ;; configure rcirc
+  ;; ---------------
+  ;; default servers which I'm connecting too.
+  (setq rcirc-server-alist
+        '(("irc.freenode.net"
+           :nick"palo-work"
+           :port "6667"
+           :password ""
+           :channels ("#spacemacs" "#funtoo" "#lac2016"))
+          ("irc.esper.net"
+           :nick "palo-work"
+           :port "6667"
+           :password ""
+           :channels ("#renoise"))
+          ))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
